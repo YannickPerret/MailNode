@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <form enctype="multipart/form-data" id="myform" >
+        <input type="text" name="nom" id="nom" required>
+        <input type="email" name="email" id="email" required>
+
+        <button type="submit">Envoyer</button>
+        <button type="reset">Remise à zero</button>
+
+    </form>
+
+
+    <script>
+        let form = document.getElementById("myform")
+        form.addEventListener("submit", function(event) {
+            event.preventDefault()
+
+            console.log(this.nom.value, this.email.value)
+
+            // Build formData object.
+            let formData = new FormData();
+            formData.append('nom', this.nom.value);
+            formData.append('email', this.email.value);
+
+            fetch("http://192.168.1.102:3080/postEmail",
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        name:this.nom.value,
+                        email:this.email.value
+                    })
+                })
+            .catch(error => console.log(error));
+
+
+            /*fetch('http://127.0.0.1:3080/postEmail', {
+                method:'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nom:this.nom.value,
+                    email:this.email.value
+                })
+            })
+           .catch(error => console.log(error))*/
+           
+        })
+    </script>
+</body>
+</html>
