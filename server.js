@@ -45,7 +45,7 @@ app.post("/postEmail", (req, res) => {
     /*async function main(){
         let account = {
             user:"contact@yannickperret.com",
-            pass:'Suplivent27'
+            pass:''
         }
 
         let transporter = mailer.createTransport({
